@@ -3,11 +3,11 @@
     <div :class="`profile-cover ${profileCoverClass}`">
       <div class="profile-content">
         <div class="profile-img">
-          <img src="./assets/imgs/me.jpg" alt="Leonardo Santos" @click="toggleCover()">
+          <img :src="avatar" :alt="login" @click="toggleCover()">
         </div>
         <div class="profile-details">
           <p class="name">{{ name }}</p>
-          <p class="description">{{ description }}</p>
+          <p class="description">{{ bio }}</p>
         </div>
       </div>
     </div>
@@ -23,9 +23,35 @@ import Component from 'vue-class-component';
 
 @Component
 export default class App extends Vue {
+  GITHUB_USER = 'leonardossev';
+
   name = 'Leonardo Santos';
   description = 'Transformo bom café e ódio em código saudável.';
   isCoverFull = true;
+
+  mounted() {
+    this.startApp();
+  }
+
+  startApp() {
+    if (!this.personalInfoExist()) {
+      this.getPersonalInfo();
+    }
+  }
+
+  personalInfoExist() {
+    return localStorage.getItem('personalInfo');
+  }
+
+  getPersonalInfo() {
+    fetch(`https://api.github.com/users/${this.GITHUB_USER}`)
+      .then(response => response.json())
+      .then(data => this.savePersonalInfo(JSON.stringify(data)));
+  }
+
+  savePersonalInfo(personalInfo) {
+    localStorage.setItem('personalInfo', personalInfo);
+  }
 
   toggleCover() {
     this.isCoverFull = !this.isCoverFull;
@@ -33,6 +59,24 @@ export default class App extends Vue {
 
   get profileCoverClass() {
     return this.isCoverFull === true ? 'full' : 'half';
+  }
+
+  get avatar() {
+    const personalInfo = JSON.parse(localStorage.getItem('personalInfo'));
+
+    return personalInfo.avatar_url;
+  }
+
+  get login() {
+    const personalInfo = JSON.parse(localStorage.getItem('personalInfo'));
+
+    return personalInfo.login;
+  }
+
+  get bio() {
+    const personalInfo = JSON.parse(localStorage.getItem('personalInfo'));
+
+    return personalInfo.bio;
   }
 }
 </script>
