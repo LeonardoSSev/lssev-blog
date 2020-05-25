@@ -4,11 +4,13 @@
       <div class="profile-content">
         <ProfileLoader v-if="isLoading" />
         <div class="profile-img" v-if="!isLoading">
-          <img :src="avatar" :alt="login"/>
+          <img :src="profile.avatar_url" :alt="profile.login" />
         </div>
         <div class="profile-details" v-if="!isLoading">
-          <p class="name">{{ name }}</p>
-          <p class="description">{{ bio }}</p>
+          <p class="name">
+            {{ profile.name }} <span class="login">|| <span class="login-text">{{ profile.login }}</span></span>
+          </p>
+          <p class="description">{{ profile.bio }}</p>
         </div>
       </div>
     </div>
@@ -40,7 +42,9 @@ export default class App extends Vue {
   startApp() {
     if (!this.personalInfoExist()) {
       this.getPersonalInfo();
+      return;
     }
+    this.setLoading(false);
   }
 
   personalInfoExist() {
@@ -48,18 +52,18 @@ export default class App extends Vue {
   }
 
   getPersonalInfo() {
-    this.toggleLoading(true);
+    this.setLoading(true);
     setTimeout(() => {
       fetch(`https://api.github.com/users/${this.GITHUB_USER}`)
         .then(response => response.json())
         .then(data => {
           this.savePersonalInfo(JSON.stringify(data));
-          this.toggleLoading(false);
+          this.setLoading(false);
         });
     }, 3000);
   }
 
-  toggleLoading(isLoading) {
+  setLoading(isLoading) {
     this.isLoading = isLoading;
   }
 
@@ -75,28 +79,8 @@ export default class App extends Vue {
     return this.isCoverFull === true ? 'full' : 'half';
   }
 
-  get avatar() {
-    const personalInfo = JSON.parse(localStorage.getItem('personalInfo'));
-
-    return personalInfo.avatar_url;
-  }
-
-  get login() {
-    const personalInfo = JSON.parse(localStorage.getItem('personalInfo'));
-
-    return personalInfo.login;
-  }
-
-  get name() {
-    const personalInfo = JSON.parse(localStorage.getItem('personalInfo'));
-
-    return personalInfo.name;
-  }
-
-  get bio() {
-    const personalInfo = JSON.parse(localStorage.getItem('personalInfo'));
-
-    return personalInfo.bio;
+  get profile() {
+    return JSON.parse(localStorage.getItem('personalInfo'));
   }
 }
 </script>
@@ -150,6 +134,20 @@ export default class App extends Vue {
 
       .profile-details {
         text-align: center;
+
+        .name {
+          font-weight: 700;
+          font-size: 22px;
+        }
+
+        .login {
+          font-weight: 300;
+          color: #C2C2C2;
+
+          .login-text {
+            font-style: italic;
+          }
+        }
       }
     }
   }
