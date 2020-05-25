@@ -1,11 +1,12 @@
 <template>
   <div id="app">
-    <div :class="`profile-cover ${profileCoverClass}`">
+    <div :class="`profile-cover ${profileCoverClass}`" @click="toggleCover()">
       <div class="profile-content">
-        <div class="profile-img">
-          <img :src="avatar" :alt="login" @click="toggleCover()">
+        <ProfileLoader v-if="isLoading" />
+        <div class="profile-img" v-if="!isLoading">
+          <img :src="avatar" :alt="login"/>
         </div>
-        <div class="profile-details">
+        <div class="profile-details" v-if="!isLoading">
           <p class="name">{{ name }}</p>
           <p class="description">{{ bio }}</p>
         </div>
@@ -20,14 +21,17 @@
 <script>
 import Vue from 'vue';
 import Component from 'vue-class-component';
+import ProfileLoader from './components/profile-loader/loader.vue';
 
-@Component
+@Component({
+  components: {
+    ProfileLoader
+  }
+})
 export default class App extends Vue {
   GITHUB_USER = 'leonardossev';
-
-  name = 'Leonardo Santos';
-  description = 'Transformo bom café e ódio em código saudável.';
   isCoverFull = true;
+  isLoading = true;
 
   mounted() {
     this.startApp();
@@ -44,9 +48,19 @@ export default class App extends Vue {
   }
 
   getPersonalInfo() {
-    fetch(`https://api.github.com/users/${this.GITHUB_USER}`)
-      .then(response => response.json())
-      .then(data => this.savePersonalInfo(JSON.stringify(data)));
+    this.toggleLoading(true);
+    setTimeout(() => {
+      fetch(`https://api.github.com/users/${this.GITHUB_USER}`)
+        .then(response => response.json())
+        .then(data => {
+          this.savePersonalInfo(JSON.stringify(data));
+          this.toggleLoading(false);
+        });
+    }, 3000);
+  }
+
+  toggleLoading(isLoading) {
+    this.isLoading = isLoading;
   }
 
   savePersonalInfo(personalInfo) {
@@ -71,6 +85,12 @@ export default class App extends Vue {
     const personalInfo = JSON.parse(localStorage.getItem('personalInfo'));
 
     return personalInfo.login;
+  }
+
+  get name() {
+    const personalInfo = JSON.parse(localStorage.getItem('personalInfo'));
+
+    return personalInfo.name;
   }
 
   get bio() {
@@ -123,7 +143,6 @@ export default class App extends Vue {
           border: 2px solid #FFF;
           border-radius: 50%;
           padding: 0.5%;
-          cursor: pointer;
           max-width: 100%;
           height: auto;
         }
