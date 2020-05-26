@@ -1,4 +1,5 @@
 module.exports = {
+  publicPath: '/lssev-blog'
   css: {
     loaderOptions: {
       sass: {
