@@ -10,7 +10,7 @@
 <script>
 import Vue from 'vue';
 import Component from 'vue-class-component';
-import ProfileCover from './components/layout/ProfileCover/profile-cover.vue';
+import ProfileCover from './components/layout/profile-cover/profile-cover.vue';
 
 @Component({
   components: {

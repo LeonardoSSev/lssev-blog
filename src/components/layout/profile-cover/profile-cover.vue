@@ -5,6 +5,7 @@
       <div class="profile-img" v-if="!isLoading">
         <img :src="profile.avatar_url" :alt="profile.login" />
       </div>
+      <ProfileDivider />
       <div class="profile-details" v-if="!isLoading">
         <p class="name">
           {{ profile.name }}
@@ -21,11 +22,13 @@
 <script>
 import Vue from 'vue';
 import Component from 'vue-class-component';
-import ProfileLoader from '@/components/profile-loader/loader.vue';
+import ProfileLoader from '@/components/shared/profile-loader/profile-loader.vue';
+import ProfileDivider from '@/components/shared/profile-divider/profile-divider.vue';
 
 @Component({
   components: {
-    ProfileLoader
+    ProfileLoader,
+    ProfileDivider
   }
 })
 export default class ProfileCover extends Vue {
@@ -127,6 +130,7 @@ export default class ProfileCover extends Vue {
 
     .profile-details {
       text-align: center;
+      margin: 0 1% 0 1%;
 
       .name {
         font-weight: 700;
@@ -198,7 +202,8 @@ export default class ProfileCover extends Vue {
         }
       }
 
-      .profile-details {
+      .profile-details,
+      .profile-divider {
         display: none;
       }
     }
