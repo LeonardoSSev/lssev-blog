@@ -14,7 +14,7 @@ const fs = require('fs');
     await exec(`git --work-tree ${folderName} commit -m "Deploy"`);
     console.log('Pushing to gh-pages...');
     await exec('git push --set-upstream origin gh-pages --force');
-    await exec(`del -r ${folderName}`);
+    await exec(`rm -r ${folderName}`);
     await exec('git checkout -f master');
     await exec('git branch -D gh-pages');
     console.log('Successfully deployed');
