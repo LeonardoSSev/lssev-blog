@@ -1,29 +1,15 @@
 # lssev
 
-## Project setup
-```
-npm install
-```
+![Deploy to github pages](https://github.com/LeonardoSSev/lssev-blog/workflows/Deploy%20to%20github%20pages/badge.svg)
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+## Blog pessoal
 
-### Compiles and minifies for production
-```
-npm run build
-```
+Repositório responsável por armazenar o código fonte do meu blog pessoal.
 
-### Run your end-to-end tests
-```
-npm run test:e2e
-```
+## Tecnologias
 
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+Para o desenvolvimento, estou utilizando:
+- [Vue](https://vuejs.org/https://vuejs.org/)
+- [Prettier](https://prettier.io/)
+- [Cypress](https://www.cypress.io/)
+- [Babel](https://babeljs.io/)
