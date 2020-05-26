@@ -10,7 +10,7 @@ const fs = require('fs');
 
     const folderName = fs.existsSync('dist') ? 'dist' : 'build';
 
-    await exec('echo ablono.com > ./dist/CNAME');
+    await exec("echo 'ablono.com' > ./dist/CNAME");
 
     await exec(`git --work-tree ${folderName} add --all`);
     await exec(`git --work-tree ${folderName} commit -m "Deploy"`);
