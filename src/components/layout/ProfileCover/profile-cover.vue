@@ -7,7 +7,10 @@
       </div>
       <div class="profile-details" v-if="!isLoading">
         <p class="name">
-          {{ profile.name }} <span class="login">|| <span class="login-text">{{ profile.login }}</span></span>
+          {{ profile.name }}
+          <span class="login">
+            || <span class="login-text">{{ profile.login }}</span>
+          </span>
         </p>
         <p class="description">{{ profile.bio }}</p>
       </div>
@@ -86,7 +89,7 @@ export default class ProfileCover extends Vue {
   background: #000 no-repeat center center fixed;
   background-size: cover;
   width: 100%;
-  color: #FFF;
+  color: #fff;
   position: fixed;
   top: 0;
   left: 0;
@@ -109,13 +112,15 @@ export default class ProfileCover extends Vue {
 
     .profile-img {
       padding: 0 10% 0 10%;
+      display: flex;
+      justify-content: center;
       align-content: center;
 
       img {
-        border: 2px solid #FFF;
+        border: 2px solid #fff;
         border-radius: 50%;
         padding: 0.5%;
-        max-width: 100%;
+        max-width: 50%;
         height: auto;
       }
     }
@@ -130,7 +135,7 @@ export default class ProfileCover extends Vue {
 
       .login {
         font-weight: 300;
-        color: #C2C2C2;
+        color: #c2c2c2;
 
         .login-text {
           font-style: italic;
@@ -171,7 +176,7 @@ export default class ProfileCover extends Vue {
             margin: auto;
             width: 70%;
           }
-        } 
+        }
 
         .profile-details {
           animation: appear 0.8s ease-in;
@@ -187,7 +192,7 @@ export default class ProfileCover extends Vue {
         display: flex;
 
         img {
-          animation: shrink 0.8s ease-in;
+          animation: shrink 0.5s ease-in;
           width: 30%;
           margin: auto;
         }
@@ -203,6 +208,7 @@ export default class ProfileCover extends Vue {
       0% {
         opacity: 0;
       }
+
       100% {
         opacity: 1;
       }

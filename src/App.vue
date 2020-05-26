@@ -10,15 +10,14 @@
 <script>
 import Vue from 'vue';
 import Component from 'vue-class-component';
-import ProfileCover from './components/layout/profile-cover.vue';
+import ProfileCover from './components/layout/ProfileCover/profile-cover.vue';
 
 @Component({
   components: {
     ProfileCover
   }
 })
-export default class App extends Vue {
-}
+export default class App extends Vue {}
 </script>
 
 <style lang="scss">
