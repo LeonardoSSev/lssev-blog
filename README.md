@@ -13,3 +13,7 @@ Para o desenvolvimento, estou utilizando:
 - [Prettier](https://prettier.io/)
 - [Cypress](https://www.cypress.io/)
 - [Babel](https://babeljs.io/)
+
+## Entrega Contínua
+
+Para o processo de entrega contínua (Continuous Deployment), estou utilizando o [GitHub Actions](https://github.com/actions).
